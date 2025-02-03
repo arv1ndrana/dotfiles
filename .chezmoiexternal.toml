@@ -4,3 +4,7 @@
     exact = true
     stripComponents = 1
     refreshPeriod = "168h"
+[".themes/Windows-10-Dark"]
+	type = "git-repo"
+    url = "https://github.com/B00merang-Project/Windows-10-Dark"
+    refreshPeriod = "168h"
