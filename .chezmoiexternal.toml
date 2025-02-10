@@ -10,6 +10,6 @@
     refreshPeriod = "168h"
 [".tmux/plugins/tpm"]
 	type = "git-repo"
-	url = "git clone https://github.com/tmux-plugins/tpm"
+	url = "https://github.com/tmux-plugins/tpm"
 	refreshPeriod = "168h"
 
