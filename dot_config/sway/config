@@ -33,10 +33,10 @@ output * bg ~/.wallpapers/what.jpeg fill
 #
 # Example configuration:
 #
-#exec swayidle -w \
-#         timeout 10800 'swaylock -f -c 000000' \
-#         timeout 11000 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#         before-sleep 'swaylock -f -c 000000'
+exec swayidle -w \
+         timeout 10800 'swaylock -f -c 000000' \
+         timeout 11000 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -81,9 +81,11 @@ exec_always {
     #gsettings set $gnome-schema font-name 'Your font name'
 }
 
-# Clipboard not working in code
+# Clipboard not working in code (UNTESTED)
+# exec_always wl-clip-persist
 
-exec_always wl-clip-persist
+# Give sudo acess to programs automatically (with passwd of course)
+exec_always /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
 
 ### Key bindings
 #
@@ -238,22 +240,29 @@ bindsym $mod+r mode "resize"
     bindsym Print exec grim
     bindsym Shift+Print exec grim -g "$(slurp)"
 
+# Clipboard history
+exec wl-paste --watch cliphist store
+bindsym $mod+p exec cliphist list | wmenu | cliphist decode | wl-copy
+
 #
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    position bottom
+    # position bottom
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command i3status
 
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
+	#status_command i3status
+	swaybar_command waybar
+	}
+
+#    colors {
+#        statusline #ffffff
+#        background #323232
+#        inactive_workspace #32323200 #32323200 #5c5c5c
+#    }
+# }
 
 include /etc/sway/config.d/*
